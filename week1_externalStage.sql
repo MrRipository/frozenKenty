@@ -15,10 +15,10 @@ COPY INTO tbl from @ff_week1;
 
 
 --Afetr learning from other users post
-grant usage warehouse COMPUTE_WH  to role SYSADMIN;
+grant usage on warehouse COMPUTE_WH to role SYSADMIN;
 use warehouse compute_wh;
 
-create databace ff_2_db;
+create database ff_2_db;
 create schema ff_2_schema;
 
 create stage ff_week1
@@ -33,6 +33,9 @@ select
 from @ff_week1;
 
 create or replace table ff as 
-select $1, filename, row_num
+select $1, metadata$filename as filename, metadata$file_row_number as row_num
 from @ff_week1
 order by filename, row_num;
+
+select * from ff;
+
